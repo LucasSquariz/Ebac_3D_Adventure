@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateBase
+namespace Ebac.StateMachine
 {
-    public virtual void OnStateEnter()
+    public class StateBase
     {
-        Debug.Log("OnStateEnter");
-    }
+        public virtual void OnStateEnter()
+        {
+            Debug.Log("OnStateEnter");
+        }
 
-    public virtual void OnStateStay()
-    {
-        Debug.Log("OnStateExit");
-    }
+        public virtual void OnStateStay()
+        {
+            Debug.Log("OnStateExit");
+        }
 
-    public virtual void OnStateExit()
-    {
-        Debug.Log("OnStateExit");
+        public virtual void OnStateExit()
+        {
+            Debug.Log("OnStateExit");
+        }
     }
 }
+
