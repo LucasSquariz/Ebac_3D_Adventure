@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float speed = 1f;
     public float turnSpeed = 1f;
     public float gravity = 9.8f;
+    public float jumpForce = 15f;
 
     private float vSpeed = 0;
 
@@ -18,6 +19,15 @@ public class Player : MonoBehaviour
         transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
         var inputAxisVertical = Input.GetAxis("Vertical");
         var speedVector = transform.forward * inputAxisVertical * speed;
+
+        if(characterController.isGrounded)
+        {
+            vSpeed = 0;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                vSpeed = jumpForce;
+            }
+        }        
 
         vSpeed -= gravity * Time.deltaTime;
         speedVector.y = vSpeed;
