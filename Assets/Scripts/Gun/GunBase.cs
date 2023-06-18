@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GunBase : MonoBehaviour
@@ -10,24 +9,9 @@ public class GunBase : MonoBehaviour
     internal Transform projectileParent;
     public float timeBetweenShoot = .05f;    
 
-    private Coroutine _currentCorrotine; 
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            _currentCorrotine = StartCoroutine(StartShoot());
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            if (_currentCorrotine != null)
-            {
-                StopCoroutine(_currentCorrotine);
-            }
-        }
-    }
+    private Coroutine _currentCorrotine;    
 
-    IEnumerator StartShoot()
+    IEnumerator ShootCoroutine()
     {
         while (true)
         {
@@ -41,5 +25,18 @@ public class GunBase : MonoBehaviour
         var projectile = Instantiate(prefabProjectile, projectileParent);
         projectile.transform.position = positionToShoot.position;
         projectile.transform.rotation = positionToShoot.rotation;
+    }
+
+    public void StartShoot()
+    {
+        _currentCorrotine = StartCoroutine(ShootCoroutine());
+    }
+
+    public void StopShoot()
+    {
+        if (_currentCorrotine != null)
+        {
+            StopCoroutine(_currentCorrotine);
+        }
     }
 }
