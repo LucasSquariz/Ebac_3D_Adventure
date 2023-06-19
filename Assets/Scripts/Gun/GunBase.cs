@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GunBase : MonoBehaviour
 {
-    public Transform prefabProjectile;
+    public ProjectileBase prefabProjectile;
 
-    public Transform positionToShoot;
-    internal Transform projectileParent;
-    public float timeBetweenShoot = .3f;    
+    public Transform positionToShoot;    
+    public float timeBetweenShoot = .3f;
+    public float speed = 50f;
 
     private Coroutine _currentCorrotine;    
 
@@ -22,9 +22,11 @@ public class GunBase : MonoBehaviour
 
     public virtual void Shoot()
     {        
-        var projectile = Instantiate(prefabProjectile, projectileParent);
+        var projectile = Instantiate(prefabProjectile);
         projectile.transform.position = positionToShoot.position;
         projectile.transform.rotation = positionToShoot.rotation;
+        projectile.speed = speed;
+        projectile.transform.parent = null;
     }
 
     public void StartShoot()

@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunShootAngle : MonoBehaviour
+public class GunShootAngle : GunShootLimit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int amountPerShoot = 4;
+    public float angle = 15f;
 
-    // Update is called once per frame
-    void Update()
+    public override void Shoot()
     {
+        int mult = 0;
+        for(int i = 0; i < amountPerShoot; i++)
+        {
+            if(i%2 == 0)
+            {
+                mult++;
+            }
+            var projectile = Instantiate(prefabProjectile, positionToShoot);
+
+            projectile.transform.position = positionToShoot.position;
+            projectile.transform.localEulerAngles = Vector3.zero + Vector3.up * (i%2 == 0 ? angle : -angle) * mult;
+            projectile.speed = speed;
+            projectile.transform.parent = null;
+        }
         
     }
 }
