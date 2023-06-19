@@ -7,11 +7,11 @@ public class GunBase : MonoBehaviour
 
     public Transform positionToShoot;
     internal Transform projectileParent;
-    public float timeBetweenShoot = .05f;    
+    public float timeBetweenShoot = .3f;    
 
     private Coroutine _currentCorrotine;    
 
-    IEnumerator ShootCoroutine()
+    protected virtual IEnumerator ShootCoroutine()
     {
         while (true)
         {
@@ -20,7 +20,7 @@ public class GunBase : MonoBehaviour
         }
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {        
         var projectile = Instantiate(prefabProjectile, projectileParent);
         projectile.transform.position = positionToShoot.position;
@@ -29,6 +29,7 @@ public class GunBase : MonoBehaviour
 
     public void StartShoot()
     {
+        StopShoot();
         _currentCorrotine = StartCoroutine(ShootCoroutine());
     }
 
