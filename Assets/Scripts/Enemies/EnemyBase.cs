@@ -7,15 +7,17 @@ using Animation;
 
 namespace Enemy
 {
-    public class EnemyBase : MonoBehaviour
+    public class EnemyBase : MonoBehaviour, IDamageable
     {
+        [SerializeField, BoxGroup("References")] public AnimationBase _animationBase;
+        [SerializeField, BoxGroup("References")] public Collider collider;
+
         [SerializeField, BoxGroup("Enemy config")] public float startLife = 10f;
 
         [SerializeField, BoxGroup("Animation config")] public float startAnimationDuration = .2f;
         [SerializeField, BoxGroup("Animation config")] public Ease startAnimationEase = Ease.OutBack;
         [SerializeField, BoxGroup("Animation config")] public bool startWithBornAnimation = true;
-
-        public AnimationBase _animationBase;
+        
         [ShowNonSerializedField] private float _currentLife;
 
         private void Start()
@@ -41,6 +43,7 @@ namespace Enemy
 
         protected virtual void OnKill() 
         {
+            if(collider != null) collider.enabled = false;
             Destroy(this.gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
         }
@@ -68,6 +71,11 @@ namespace Enemy
 
         #endregion
 
+        public void Damage(float damage)
+        {
+            OnDamagetaken(damage);
+        }
+
         //Debug
         private void Update()
         {
@@ -77,6 +85,7 @@ namespace Enemy
                 OnDamagetaken(5f);
             }
         }
+
     }
 }
 

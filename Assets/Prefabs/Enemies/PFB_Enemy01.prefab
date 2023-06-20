@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd31c7617306a834fa1390fb518bbf7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animationBase: {fileID: 8398911736936532415}
+  collider: {fileID: 1743469193}
   startLife: 10
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
-  _animationBase: {fileID: 8398911736936532415}
 --- !u!65 &1743469193
 BoxCollider:
   m_ObjectHideFlags: 0
