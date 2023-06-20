@@ -11,6 +11,8 @@ namespace Enemy
     {
         [SerializeField, BoxGroup("References")] public AnimationBase _animationBase;
         [SerializeField, BoxGroup("References")] public Collider collider;
+        [SerializeField, BoxGroup("References")] public FlashColor flashColor;
+        [SerializeField, BoxGroup("References")] public ParticleSystem particleSystem;
 
         [SerializeField, BoxGroup("Enemy config")] public float startLife = 10f;
 
@@ -50,6 +52,8 @@ namespace Enemy
 
         public void OnDamagetaken(float d)
         {
+            if (flashColor != null) flashColor.Flash();
+            if (particleSystem != null) particleSystem.Emit(15);
             _currentLife -= d;
 
             if (_currentLife <= 0)

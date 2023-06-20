@@ -25,15 +25,17 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     }    
 
     private void CreateGun(int gunIndex)
-    {
+    {        
         _currentGun = Instantiate(gunBases[gunIndex], gunPosition);
         _currentGun.transform.localPosition = gunPosition.transform.localPosition;
     }
 
     private void ChangeGun(int gunIndex)
     {
-        if(gunIndex != _currentGunIndex)
-        {
+        Debug.Log(_currentGun);
+        Destroy(_currentGun.gameObject);
+        if (gunIndex != _currentGunIndex)
+        {            
             CreateGun(gunIndex);
             _currentGunIndex = gunIndex;
         }

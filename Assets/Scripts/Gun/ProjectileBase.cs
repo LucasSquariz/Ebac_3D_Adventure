@@ -22,10 +22,9 @@ public class ProjectileBase : MonoBehaviour
 
         if (damageable != null) 
         { 
-            damageable.Damage(damageAmount); 
-             
+            damageable.Damage(damageAmount);
+            Destroy(this.gameObject);
         }
-
-        Destroy(this.gameObject);
+        
     }
 }

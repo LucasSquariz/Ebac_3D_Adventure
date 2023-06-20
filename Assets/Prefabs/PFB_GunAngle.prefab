@@ -50,7 +50,7 @@ MonoBehaviour:
   timeBetweenShoot: 0.3
   speed: 50
   uiGunUpdaters: []
-  maxBullets: 3
+  maxShoots: 5
   timeToRecharge: 1
   amountPerShoot: 8
   angle: 15
