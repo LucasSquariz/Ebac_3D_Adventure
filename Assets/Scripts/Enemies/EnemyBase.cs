@@ -54,6 +54,9 @@ namespace Enemy
         {
             if (flashColor != null) flashColor.Flash();
             if (particleSystem != null) particleSystem.Emit(15);
+
+            transform.position -= transform.forward;
+
             _currentLife -= d;
 
             if (_currentLife <= 0)
@@ -77,6 +80,12 @@ namespace Enemy
 
         public void Damage(float damage)
         {
+            OnDamagetaken(damage);
+        }
+
+        public void Damage(float damage, Vector3 direction)
+        {
+            transform.DOMove(transform.position - direction, .1f);
             OnDamagetaken(damage);
         }
 
