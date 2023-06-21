@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Ebac.StateMachine;
 using NaughtyAttributes;
@@ -12,22 +13,28 @@ namespace Boss
         INIT,
         IDLE,
         WALK,
-        ATTACK
+        ATTACK,
+        DEATH
     }
 
     public class BossBase : MonoBehaviour
     {
         [SerializeField, BoxGroup("References")] public StateMachine<BossAction> stateMachine;
         [SerializeField, BoxGroup("References")] public List<Transform> waypoints;
+        [SerializeField, BoxGroup("References")] public HealthBase healthBase;
 
         [SerializeField, BoxGroup("Boss animation config")] public float startAnimationDuration = .5f;
         [SerializeField, BoxGroup("Boss animation config")] public Ease startAnimationEase = Ease.OutBack;
+
+        [SerializeField, BoxGroup("Boss Attack config")] public int attackAmount = 5;
+        [SerializeField, BoxGroup("Boss Attack config")] public float timeBetweenAttacks = .5f;
 
         [SerializeField, BoxGroup("Boss config")] public float speed = 1f;
 
         private void Start()
         {
             Init();
+            healthBase.OnKill += OnBossKill;
         }
 
         public void Init()
@@ -37,21 +44,52 @@ namespace Boss
 
             stateMachine.RegisterStates(BossAction.INIT, new BossStateInit());
             stateMachine.RegisterStates(BossAction.WALK, new BossStateWalk());
+            stateMachine.RegisterStates(BossAction.ATTACK, new BossStateAttack());
+            stateMachine.RegisterStates(BossAction.DEATH, new BossStateDeath());
         }
 
-        public void GoToRandomPosition()
+        private void OnBossKill(HealthBase h)
         {
-            StartCoroutine(GoToPositionCoroutine(waypoints[Random.Range(0, waypoints.Count)]));
+            SwitchState(BossAction.DEATH);
         }
 
-        IEnumerator GoToPositionCoroutine(Transform t)
+        #region ATTACK
+
+        public void StartAttack(Action endCallback = null)
         {
-            while(Vector3.Distance(transform.position, t.position) >1f)
+            StartCoroutine(StartAttackCoroutine(endCallback));
+        }
+
+        IEnumerator StartAttackCoroutine(Action endCallback)
+        {
+            int attacks = 0;
+
+            while(attacks < attackAmount)
+            {
+                attacks++;
+                yield return new WaitForSeconds(timeBetweenAttacks);
+            }
+            endCallback?.Invoke();
+        }
+        #endregion
+
+        #region WALK
+        public void GoToRandomPosition(Action onArrive = null)
+        {
+            StartCoroutine(GoToPositionCoroutine(waypoints[UnityEngine.Random.Range(0, waypoints.Count)], onArrive));
+        }
+
+        IEnumerator GoToPositionCoroutine(Transform t, Action onArrive = null)
+        {
+            while (Vector3.Distance(transform.position, t.position) > 1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, t.position, Time.deltaTime * speed);
                 yield return new WaitForEndOfFrame();
             }
+            onArrive?.Invoke();
         }
+
+        #endregion
 
         #region ANIMATION
         public void StartInitAnimation()
@@ -67,12 +105,18 @@ namespace Boss
         {
             SwitchState(BossAction.INIT);
         }
+
         [Button]
         public void SwitchWalk()
         {
             SwitchState(BossAction.WALK);
         }
 
+        [Button]
+        public void SwitchAttack()
+        {
+            SwitchState(BossAction.ATTACK);
+        }
 
         #endregion
 
