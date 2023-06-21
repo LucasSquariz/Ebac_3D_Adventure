@@ -15,12 +15,14 @@ namespace Enemy
         [SerializeField, BoxGroup("References")] public ParticleSystem particleSystem;
 
         [SerializeField, BoxGroup("Enemy config")] public float startLife = 10f;
+        [SerializeField, BoxGroup("Enemy config")] public bool lookAtPlayer = false;
 
         [SerializeField, BoxGroup("Animation config")] public float startAnimationDuration = .2f;
         [SerializeField, BoxGroup("Animation config")] public Ease startAnimationEase = Ease.OutBack;
         [SerializeField, BoxGroup("Animation config")] public bool startWithBornAnimation = true;
         
         [ShowNonSerializedField] private float _currentLife;
+        [ShowNonSerializedField] private Player _player;
 
         private void Start()
         {
@@ -35,7 +37,8 @@ namespace Enemy
         protected virtual void Init()
         {
             ResetLife();
-            if(startWithBornAnimation) BornAnimation();
+            _player = FindObjectOfType<Player>();
+            if (startWithBornAnimation) BornAnimation();
         }
 
         protected virtual void Kill() 
@@ -89,13 +92,23 @@ namespace Enemy
             OnDamagetaken(damage);
         }
 
-        //Debug
-        private void Update()
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player player = collision.transform.GetComponent<Player>();
+
+            if (player != null)
+            {
+                player.Damage(1f);
+            }
+        }
+
+        
+        public virtual void Update()
         {
 
-            if(Input.GetKeyDown(KeyCode.K))
+            if(lookAtPlayer)
             {
-                OnDamagetaken(5f);
+                transform.LookAt(_player.transform.position);
             }
         }
 

@@ -8,17 +8,17 @@ namespace Ebac.StateMachine
     {
         public virtual void OnStateEnter()
         {
-            Debug.Log("OnStateEnter");
+            
         }
 
         public virtual void OnStateStay()
         {
-            Debug.Log("OnStateExit");
+            
         }
 
         public virtual void OnStateExit()
         {
-            Debug.Log("OnStateExit");
+            
         }
     }
 }
