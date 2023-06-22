@@ -15,7 +15,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     [SerializeField, BoxGroup("Life config")] public float startLife = 10f;
     [SerializeField, BoxGroup("Life config")] public bool destroyOnKill = false;
 
-    [ShowNonSerializedField] private float _currentLife;
+    [ShowNonSerializedField] public float _currentLife;
 
     public Action<HealthBase> OnDamage;
     public Action<HealthBase> OnKill;

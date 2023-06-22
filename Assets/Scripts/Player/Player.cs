@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField, BoxGroup("References")] public Animator animator;
     [SerializeField, BoxGroup("References")] public CharacterController characterController;
     [SerializeField, BoxGroup("References")] public List<FlashColor> flashColors;
+    [SerializeField, BoxGroup("References")] public List<Collider> colliders;
     [SerializeField, BoxGroup("References")] public HealthBase healthBase;
 
     [SerializeField, BoxGroup("Character config")] public float speed = 1f;
@@ -20,12 +21,15 @@ public class Player : MonoBehaviour
     [ShowNonSerializedField, BoxGroup("Keys")] private KeyCode KeyJump = KeyCode.Space;
     [ShowNonSerializedField, BoxGroup("Keys")] private KeyCode KeyRun = KeyCode.LeftShift;
 
+    [ShowNonSerializedField, BoxGroup("animation config")] private bool _isAlive = true;
+
     private float vSpeed = 0;
 
     private void Start()
     {
         OnValidate();
         healthBase.OnDamage += Damage;
+        healthBase.OnDamage += OnKill;
     }
 
     private void OnValidate()
@@ -33,7 +37,18 @@ public class Player : MonoBehaviour
         if(healthBase == null) GetComponent<HealthBase>();
     }
 
+
     #region Life
+    private void OnKill(HealthBase h)
+    {
+        if (_isAlive && h._currentLife <= 0)
+        {
+            _isAlive = false;
+            animator.SetTrigger("Death");
+            colliders.ForEach(i => i.enabled = false);
+        }        
+    }
+
     public void Damage(HealthBase h)
     {
         Debug.Log("Flash player");
