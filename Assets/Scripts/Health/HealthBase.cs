@@ -11,11 +11,12 @@ public class HealthBase : MonoBehaviour, IDamageable
     [SerializeField, BoxGroup("References")] public AnimationBase _animationBase;
     [SerializeField, BoxGroup("References")] public FlashColor flashColor;
     [SerializeField, BoxGroup("References")] public ParticleSystem particleSystem;
+    [SerializeField, BoxGroup("References")] public List<UIUpdater> uiUpdaters;
 
     [SerializeField, BoxGroup("Life config")] public float startLife = 10f;
     [SerializeField, BoxGroup("Life config")] public bool destroyOnKill = false;
 
-    [ShowNonSerializedField] public float _currentLife;
+    public float _currentLife;
 
     public Action<HealthBase> OnDamage;
     public Action<HealthBase> OnKill;
@@ -54,7 +55,16 @@ public class HealthBase : MonoBehaviour, IDamageable
             PlayAnimationByTrigger(AnimationType.DEATH);
             Kill();
         }
+        UpdateUI();
         OnDamage?.Invoke(this);
+    }
+
+    private void UpdateUI()
+    {
+        if (uiUpdaters != null)
+        {
+            uiUpdaters.ForEach(i => i.UpdateValue((float)_currentLife / startLife));
+        }
     }
 
     public void Damage(float damage)

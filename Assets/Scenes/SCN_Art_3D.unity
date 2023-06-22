@@ -378,9 +378,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.563, y: 0.000099658966}
+  m_SizeDelta: {x: 58.277, y: 7.4968}
+  m_Pivot: {x: 0.5000001, y: 0.5}
 --- !u!114 &38290462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,18 +409,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.15045522, g: 0.9056604, b: 0.029049424, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -4059,7 +4059,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765565352}
-  m_LocalRotation: {x: 0.11528841, y: 0.0000000042729127, z: -4.9592397e-10, w: 0.9933321}
+  m_LocalRotation: {x: 0.1152884, y: -0.000000004272913, z: 4.9592414e-10, w: 0.9933321}
   m_LocalPosition: {x: 411.08002, y: -0.8299999, z: 29.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5614,7 +5614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &946877545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5624,7 +5624,7 @@ RectTransform:
   m_GameObject: {fileID: 946877544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 38290461}
@@ -5633,8 +5633,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2, y: 0}
-  m_SizeDelta: {x: 50, y: 60}
+  m_AnchoredPosition: {x: 0.15, y: 3.9079}
+  m_SizeDelta: {x: 55.1514, y: 7.4966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946877546
 MonoBehaviour:
@@ -8742,7 +8742,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500100153}
-  m_LocalRotation: {x: 0.11528841, y: 0.0000000042729127, z: -4.9592397e-10, w: 0.9933321}
+  m_LocalRotation: {x: 0.1152884, y: -0.000000004272913, z: 4.9592414e-10, w: 0.9933321}
   m_LocalPosition: {x: 411.08002, y: -0.8299999, z: 29.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8894,8 +8894,9 @@ GameObject:
   - component: {fileID: 1528091057}
   - component: {fileID: 1528091056}
   - component: {fileID: 1528091060}
-  - component: {fileID: 1528091061}
   - component: {fileID: 1528091064}
+  - component: {fileID: 1528091061}
+  - component: {fileID: 1528091065}
   - component: {fileID: 1528091059}
   - component: {fileID: 1528091062}
   - component: {fileID: 1528091063}
@@ -8974,7 +8975,7 @@ MonoBehaviour:
   colliders:
   - {fileID: 1528091059}
   - {fileID: 1528091062}
-  healthBase: {fileID: 1528091064}
+  healthBase: {fileID: 0}
   speed: 25
   turnSpeed: 300
   gravity: 29.4
@@ -9037,12 +9038,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe6b3a96b1851b4981ce170277f0422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationBase: {fileID: 0}
-  flashColor: {fileID: 745384178}
+  _animationBase: {fileID: 1528091065}
+  flashColor: {fileID: 672280013}
   particleSystem: {fileID: 0}
+  uiUpdaters:
+  - {fileID: 38290462}
   startLife: 10
   destroyOnKill: 0
   _currentLife: 0
+--- !u!114 &1528091065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528091055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e9194e3cb77240a3c70915ebeee1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1616800999}
+  animationSetups:
+  - animationType: 4
+    trigger: Death
 --- !u!1001 &1531140405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11466,6 +11485,7 @@ MonoBehaviour:
   _animationBase: {fileID: 1928243683}
   flashColor: {fileID: 1415904489}
   particleSystem: {fileID: 1785176111}
+  uiUpdaters: []
   startLife: 10
   destroyOnKill: 0
   _currentLife: 0

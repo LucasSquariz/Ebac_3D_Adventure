@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField, BoxGroup("References")] public CharacterController characterController;
     [SerializeField, BoxGroup("References")] public List<FlashColor> flashColors;
     [SerializeField, BoxGroup("References")] public List<Collider> colliders;
-    [SerializeField, BoxGroup("References")] public HealthBase healthBase;
+    [SerializeField, BoxGroup("References")] public HealthBase healthBase;    
 
     [SerializeField, BoxGroup("Character config")] public float speed = 1f;
     [SerializeField, BoxGroup("Character config")] public float turnSpeed = 1f;
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         OnValidate();
         healthBase.OnDamage += Damage;
-        healthBase.OnDamage += OnKill;
+        healthBase.OnKill += OnKill;
     }
 
     private void OnValidate()
@@ -37,11 +37,10 @@ public class Player : MonoBehaviour
         if(healthBase == null) GetComponent<HealthBase>();
     }
 
-
     #region Life
     private void OnKill(HealthBase h)
     {
-        if (_isAlive && h._currentLife <= 0)
+        if (_isAlive)
         {
             _isAlive = false;
             animator.SetTrigger("Death");
@@ -59,6 +58,8 @@ public class Player : MonoBehaviour
     {
         flashColors.ForEach(i => i.Flash());
     }
+
+    
     #endregion
     
     void Update()
