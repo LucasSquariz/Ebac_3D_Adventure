@@ -1,12 +1,17 @@
 using Animation;
+using DG.Tweening;
 using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBase : MonoBehaviour
+public class HealthBase : MonoBehaviour, IDamageable
 {
+    [SerializeField, BoxGroup("References")] public AnimationBase _animationBase;
+    [SerializeField, BoxGroup("References")] public FlashColor flashColor;
+    [SerializeField, BoxGroup("References")] public ParticleSystem particleSystem;
+
     [SerializeField, BoxGroup("Life config")] public float startLife = 10f;
     [SerializeField, BoxGroup("Life config")] public bool destroyOnKill = false;
 
@@ -34,23 +39,36 @@ public class HealthBase : MonoBehaviour
     {
         if(destroyOnKill) Destroy(this.gameObject, 3f);
         OnKill?.Invoke(this);
-    }
-
-    [Button]
-    public void Damage()
-    {
-        OnDamagetaken(5);
-    }
+    }    
 
     public void OnDamagetaken(float d)
     {
-        //transform.position -= transform.forward;
+        if (flashColor != null) flashColor.Flash();
+        if (particleSystem != null) particleSystem.Emit(15);
+
+        transform.position -= transform.forward;
         _currentLife -= d;
 
         if (_currentLife <= 0)
         {
+            PlayAnimationByTrigger(AnimationType.DEATH);
             Kill();
         }
         OnDamage?.Invoke(this);
+    }
+
+    public void Damage(float damage)
+    {
+        OnDamagetaken(damage);
+    }
+
+    public void Damage(float damage, Vector3 direction)
+    {
+        transform.DOMove(transform.position - direction, .1f);
+        OnDamagetaken(damage);
+    }
+    public void PlayAnimationByTrigger(AnimationType animationType)
+    {
+        _animationBase.PlayAnimationByTrigger(animationType);
     }
 }

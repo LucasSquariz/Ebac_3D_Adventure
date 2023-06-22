@@ -101,7 +101,6 @@ namespace Enemy
                 player.Damage(1f);
             }
         }
-
         
         public virtual void Update()
         {

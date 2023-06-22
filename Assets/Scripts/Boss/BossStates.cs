@@ -64,7 +64,6 @@ namespace Boss
             base.OnStateExit();
             boss.StopAllCoroutines();
         }
-
     }
 
     public class BossStateDeath : BossStateBase

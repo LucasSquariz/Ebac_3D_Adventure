@@ -21,7 +21,7 @@ namespace Boss
     {
         [SerializeField, BoxGroup("References")] public StateMachine<BossAction> stateMachine;
         [SerializeField, BoxGroup("References")] public List<Transform> waypoints;
-        [SerializeField, BoxGroup("References")] public HealthBase healthBase;
+        [SerializeField, BoxGroup("References")] public HealthBase healthBase;        
 
         [SerializeField, BoxGroup("Boss animation config")] public float startAnimationDuration = .5f;
         [SerializeField, BoxGroup("Boss animation config")] public Ease startAnimationEase = Ease.OutBack;
@@ -46,6 +46,8 @@ namespace Boss
             stateMachine.RegisterStates(BossAction.WALK, new BossStateWalk());
             stateMachine.RegisterStates(BossAction.ATTACK, new BossStateAttack());
             stateMachine.RegisterStates(BossAction.DEATH, new BossStateDeath());
+
+            SwitchState(BossAction.ATTACK);
         }
 
         private void OnBossKill(HealthBase h)
@@ -125,7 +127,9 @@ namespace Boss
         {
             stateMachine.SwitchState(state, this);
         }
-        #endregion
+
+        #endregion        
+
     }
 }
 
