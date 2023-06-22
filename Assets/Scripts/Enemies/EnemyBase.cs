@@ -24,6 +24,7 @@ namespace Enemy
         [ShowNonSerializedField] private float _currentLife;
         [ShowNonSerializedField] private Player _player;
 
+
         private void Start()
         {
             Init();
@@ -98,7 +99,7 @@ namespace Enemy
 
             if (player != null)
             {
-                player.Damage(1f);
+                player.healthBase.Damage(1f);
             }
         }
         

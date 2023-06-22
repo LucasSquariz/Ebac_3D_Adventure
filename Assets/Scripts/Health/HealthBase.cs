@@ -69,6 +69,6 @@ public class HealthBase : MonoBehaviour, IDamageable
     }
     public void PlayAnimationByTrigger(AnimationType animationType)
     {
-        _animationBase.PlayAnimationByTrigger(animationType);
+        _animationBase?.PlayAnimationByTrigger(animationType);
     }
 }

@@ -2,11 +2,12 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour
 {
     [SerializeField, BoxGroup("References")] public Animator animator;
     [SerializeField, BoxGroup("References")] public CharacterController characterController;
     [SerializeField, BoxGroup("References")] public List<FlashColor> flashColors;
+    [SerializeField, BoxGroup("References")] public HealthBase healthBase;
 
     [SerializeField, BoxGroup("Character config")] public float speed = 1f;
     [SerializeField, BoxGroup("Character config")] public float turnSpeed = 1f;
@@ -21,8 +22,19 @@ public class Player : MonoBehaviour, IDamageable
 
     private float vSpeed = 0;
 
+    private void Start()
+    {
+        OnValidate();
+        healthBase.OnDamage += Damage;
+    }
+
+    private void OnValidate()
+    {
+        if(healthBase == null) GetComponent<HealthBase>();
+    }
+
     #region Life
-    public void Damage(float damage)
+    public void Damage(HealthBase h)
     {
         Debug.Log("Flash player");
         flashColors.ForEach(i => i.Flash());
@@ -33,9 +45,7 @@ public class Player : MonoBehaviour, IDamageable
         flashColors.ForEach(i => i.Flash());
     }
     #endregion
-
-
-    // Update is called once per frame
+    
     void Update()
     {
         transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);

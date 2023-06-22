@@ -34,7 +34,13 @@ namespace Boss
         private void Start()
         {
             Init();
+            OnValidate();
             healthBase.OnKill += OnBossKill;
+        }
+
+        private void OnValidate()
+        {
+            if (healthBase == null) GetComponent<HealthBase>();
         }
 
         public void Init()
