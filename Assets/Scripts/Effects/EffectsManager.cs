@@ -11,7 +11,7 @@ public class EffectsManager : Singleton<EffectsManager>
     public PostProcessVolume processVolume;
     public float duration = 1f;
 
-    [ShowNonSerializedField] private Vignette _vignette;
+    private Vignette _vignette;
 
     [Button]
     public void ChangeVignette()
