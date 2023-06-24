@@ -1,9 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GunBase : MonoBehaviour
 {
     public ProjectileBase prefabProjectile;
+    public List<UIUpdater> uiGunUpdaters;
 
     public Transform positionToShoot;    
     public float timeBetweenShoot = .3f;

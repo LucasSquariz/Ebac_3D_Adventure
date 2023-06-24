@@ -5,18 +5,11 @@ using UnityEngine;
 
 public class GunShootLimit : GunBase
 {
-    public List<UIUpdater> uiGunUpdaters;
-
     public float maxShoots = 5f;
     public float timeToRecharge = 1f;
 
     private float _currentBullets;
-    private bool _isRecharging = false;
-
-    private void Start()
-    {
-        GetAllUIs();
-    }
+    private bool _isRecharging = false;    
 
     protected override IEnumerator ShootCoroutine()
     {        
