@@ -5,7 +5,7 @@ using Ebac.Core.Singleton;
 using TMPro;
 using NaughtyAttributes;
 
-namespace Itens
+namespace Items
 {
     public enum ItemType
     {
