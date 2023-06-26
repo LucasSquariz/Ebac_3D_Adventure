@@ -40,20 +40,26 @@ namespace Items
             }
         }
 
+        public ItemSetup GetItemByType(ItemType itemType)
+        {            
+            return itemSetups.Find(i => i.itemType == itemType);
+           
+        }
+
         public void AddByType(ItemType itemType, int amount = 1)
         {
             if (amount < 0) return;
-            itemSetups.Find(i => i.itemType == itemType).soInt.value += amount;            
-            UpdateUI();
+            itemSetups.Find(i => i.itemType == itemType).soInt.value += amount;           
+            
         }
 
         public void RemoveByType(ItemType itemType, int amount = 1)
-        {
-            if (amount > 0) return;
-            var item = itemSetups.Find(i => i.itemType == itemType).soInt.value;
-            item -= amount;
-
-            if(item < 0) item = 0;
+        {            
+            var item = itemSetups.Find(i => i.itemType == itemType);
+            item.soInt.value -= amount;
+            Debug.Log("Gastou poção");
+            Debug.Log(item);            
+            if (item.soInt.value < 0) item.soInt.value = 0;
         }
 
         [Button]

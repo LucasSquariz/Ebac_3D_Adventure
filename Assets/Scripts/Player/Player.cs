@@ -1,8 +1,9 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using Ebac.Core.Singleton;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     [SerializeField, BoxGroup("References")] public Animator animator;
     [SerializeField, BoxGroup("References")] public CharacterController characterController;
