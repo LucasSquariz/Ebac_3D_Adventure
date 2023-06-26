@@ -1909,6 +1909,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 3577329877229816745, guid: e70fcda253eb77f438367bfee31e1477, type: 3}
+      propertyPath: chestItem
+      value: 
+      objectReference: {fileID: 1752417896}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70fcda253eb77f438367bfee31e1477, type: 3}
 --- !u!1001 &231579190
@@ -12214,6 +12218,17 @@ Transform:
   m_Father: {fileID: 159890853}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1752417896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1867661359241569551, guid: e70fcda253eb77f438367bfee31e1477, type: 3}
+  m_PrefabInstance: {fileID: 231077835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f157fdf0d88d9f418c6791041e6525d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1752817948
 GameObject:
   m_ObjectHideFlags: 0
