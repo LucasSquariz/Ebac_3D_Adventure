@@ -15,6 +15,8 @@ public class DestructibleItemBase : MonoBehaviour
 
     [SerializeField, BoxGroup("Drop setup")] public int dropCoinsAmount = 2;
 
+    private Tween _currTween;
+
     private void OnValidate()
     {
         if(healthBase == null) healthBase = GetComponent<HealthBase>();
@@ -23,13 +25,22 @@ public class DestructibleItemBase : MonoBehaviour
     private void Start()
     {
         OnValidate();
-        healthBase.OnDamage += OnDamage;
+        healthBase.OnDamage += OnDamageTaken;
     }
 
-    private void OnDamage(HealthBase h)
+    private void OnDamageTaken(HealthBase h)
     {
-        transform.DOShakeScale(shakeDuration, Vector3.up, shakeForce);
-        DropCoins();
+        _currTween = transform.DOShakeScale(shakeDuration, Vector3.up, shakeForce);
+        if(h._currentLife <= 0)
+        {
+            Invoke(nameof(DropGroupOfCoins), 1f);            
+        }
+        //Invoke(nameof(ResetAnimation), .3f);
+    }
+
+    private void ResetAnimation()
+    {
+        _currTween.Kill();
     }
 
     [Button]
