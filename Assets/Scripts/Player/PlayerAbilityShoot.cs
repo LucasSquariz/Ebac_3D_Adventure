@@ -31,11 +31,10 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     }
 
     private void ChangeGun(int gunIndex)
-    {
-        Debug.Log(_currentGun);
-        Destroy(_currentGun.gameObject);
+    {               
         if (gunIndex != _currentGunIndex)
-        {            
+        {
+            Destroy(_currentGun.gameObject);
             CreateGun(gunIndex);
             _currentGunIndex = gunIndex;
         }
