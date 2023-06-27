@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ebac.Core.Singleton;
 using System.Collections;
+using Cloth;
 
 public class Player : Singleton<Player>
 {
@@ -11,6 +12,7 @@ public class Player : Singleton<Player>
     [SerializeField, BoxGroup("References")] public List<FlashColor> flashColors;
     [SerializeField, BoxGroup("References")] public List<Collider> colliders;
     [SerializeField, BoxGroup("References")] public HealthBase healthBase;    
+    [SerializeField, BoxGroup("References")] public ClothChanger _clothChanger;
 
     [SerializeField, BoxGroup("Character config")] public float speed = 1f;
     [SerializeField, BoxGroup("Character config")] public float turnSpeed = 1f;
@@ -18,12 +20,13 @@ public class Player : Singleton<Player>
 
     [SerializeField, BoxGroup("Character Jump config")] public float jumpForce = 15f;
 
-    [SerializeField, BoxGroup("Character Run config")] public float speedRun = 1.5f;
+    [SerializeField, BoxGroup("Character Run config")] public float speedRun = 1.5f;    
 
     [ShowNonSerializedField, BoxGroup("Keys")] private KeyCode KeyJump = KeyCode.Space;
     [ShowNonSerializedField, BoxGroup("Keys")] private KeyCode KeyRun = KeyCode.LeftShift;
 
-    [ShowNonSerializedField, BoxGroup("animation config")] private bool _isAlive = true;
+    [ShowNonSerializedField, BoxGroup("Animation config")] private bool _isAlive = true;
+
 
     private float vSpeed = 0;
 
@@ -138,5 +141,17 @@ public class Player : Singleton<Player>
         speed = localSpeed;
         yield return new WaitForSeconds(duration);
         speed = defaultSpeed;
+    }
+
+    public void ChangeTexture(ClothSetup setup, float duration)
+    {
+        StartCoroutine(ChangeTextureCoroutine(setup, duration));
+    }    
+
+    IEnumerator ChangeTextureCoroutine(ClothSetup setup, float duration)
+    {
+        _clothChanger.ChangeTexture(setup);        
+        yield return new WaitForSeconds(duration);
+        _clothChanger.ResetTexture();
     }
 }

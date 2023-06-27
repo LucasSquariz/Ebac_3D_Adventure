@@ -6,9 +6,11 @@ namespace Cloth
 {
     public class ClothItemSpeed : ClothItemBase
     {
+        public float speedModifier = 2f;
         public override void Collect()
         {
-            base.Collect();            
+            base.Collect(); 
+            Player.Instance.ChangeSpeed(speedModifier, duration);
         }
     }
 

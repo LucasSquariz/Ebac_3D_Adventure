@@ -8,18 +8,21 @@ namespace Cloth
     {
         public ClothType clothType;
         public string compareTag = "Player";
+        public float duration = 2f;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.transform.CompareTag(compareTag))
-            {
-                Debug.Log("Collected");
+            {                
                 Collect();
             }
         }
 
         public virtual void Collect()
         {
+            Debug.Log("Collected");
+            var setup = ClothManager.Instance.GetSetupByType(clothType);
+            Player.Instance.ChangeTexture(setup, duration);
             HideObject();
         }
 
