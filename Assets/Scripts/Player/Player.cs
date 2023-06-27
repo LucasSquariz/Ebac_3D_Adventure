@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using Ebac.Core.Singleton;
+using System.Collections;
 
 public class Player : Singleton<Player>
 {
@@ -124,5 +125,18 @@ public class Player : Singleton<Player>
         {
             transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
         }
+    }
+
+    public void ChangeSpeed(float speedModificator, float duration)
+    {
+        StartCoroutine(ChangeSpeedCoroutine(speedModificator, duration));
+    }
+
+    IEnumerator ChangeSpeedCoroutine(float localSpeed, float duration)
+    {
+        var defaultSpeed = speed;
+        speed = localSpeed;
+        yield return new WaitForSeconds(duration);
+        speed = defaultSpeed;
     }
 }
