@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cloth;
 
 public class HealthBase : MonoBehaviour, IDamageable
 {
@@ -15,6 +16,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     [SerializeField, BoxGroup("Life config")] public float startLife = 10f;
     [SerializeField, BoxGroup("Life config")] public bool destroyOnKill = false;
+    [SerializeField, BoxGroup("Life config")] public float damageMultiply = 1f;
 
     public float _currentLife;
 
@@ -50,7 +52,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
         //transform.position -= transform.forward;
 
-        _currentLife -= d;
+        _currentLife -= d * damageMultiply;
 
         if (_currentLife <= 0)
         {
@@ -88,5 +90,17 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void PlayAnimationByTrigger(AnimationType animationType)
     {
         _animationBase?.PlayAnimationByTrigger(animationType);
+    }
+
+    public void ChangeDamageTaken(float damage, float duration)
+    {
+        StartCoroutine(ChangeDamageTakenCoroutine(damageMultiply, duration));
+    }
+
+    IEnumerator ChangeDamageTakenCoroutine(float damageMult, float duration)
+    {
+        damageMultiply = damageMult;
+        yield return new WaitForSeconds(duration);
+        damageMultiply = 1;
     }
 }
