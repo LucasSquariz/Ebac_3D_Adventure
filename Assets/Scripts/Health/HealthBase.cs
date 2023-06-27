@@ -48,7 +48,8 @@ public class HealthBase : MonoBehaviour, IDamageable
         if (flashColor != null) flashColor.Flash();
         if (particleSystem != null) particleSystem.Emit(15);
 
-        transform.position -= transform.forward;
+        //transform.position -= transform.forward;
+
         _currentLife -= d;
 
         if (_currentLife <= 0)
@@ -68,6 +69,12 @@ public class HealthBase : MonoBehaviour, IDamageable
         }
     }
 
+    [Button]
+    public void DamageTest()
+    {
+        OnDamagetaken(5);
+    }
+
     public void Damage(float damage)
     {
         OnDamagetaken(damage);
@@ -75,7 +82,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public void Damage(float damage, Vector3 direction)
     {
-        transform.DOMove(transform.position - direction, .1f);
+        transform.DOMove(transform.position - direction, .1f);        
         OnDamagetaken(damage);
     }
     public void PlayAnimationByTrigger(AnimationType animationType)
