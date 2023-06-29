@@ -26,6 +26,7 @@ public class Player : Singleton<Player>
     [ShowNonSerializedField, BoxGroup("Keys")] private KeyCode KeyRun = KeyCode.LeftShift;
 
     [ShowNonSerializedField, BoxGroup("Animation config")] private bool _isAlive = true;
+    [ShowNonSerializedField, BoxGroup("Animation config")] private bool _isJumping = false;
 
 
     private float vSpeed = 0;
@@ -92,10 +93,25 @@ public class Player : Singleton<Player>
 
         if(characterController.isGrounded)
         {
+            if (_isJumping)
+            {
+                _isJumping = false;
+                Debug.Log("Landing");
+                animator.SetTrigger("Land");
+            }
+
             vSpeed = 0;
             if (Input.GetKeyDown(KeyJump))
             {
                 vSpeed = jumpForce;
+
+                if (!_isJumping)
+                {
+                    _isJumping = true;
+                    Debug.Log("Jumping");
+                    animator.SetTrigger("Jump");
+                }
+                
             }
         }        
 
