@@ -1,0 +1,4 @@
+{
+    "lastCheckpoint": 1,
+    "playerName": "Lucas"
+}
