@@ -3,20 +3,44 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ebac.Core.Singleton;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : Singleton<SaveManager>
 {
+    private SaveSetup _saveSetup;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _saveSetup = new SaveSetup();
+        _saveSetup.lastLevel = 2;
+        _saveSetup.playerName = "Lucas";
+    }
+    
+
+    #region SAVE
     [Button]
     private void Save()
     {
-        SaveSetup saveSetup = new SaveSetup();
-        saveSetup.lastCheckpoint = 1;
-        saveSetup.playerName = "Lucas";
-
-        string setupToJASON = JsonUtility.ToJson(saveSetup, true);
+        string setupToJASON = JsonUtility.ToJson(_saveSetup, true);
         Debug.Log(setupToJASON);
         SaveFile(setupToJASON);
     }
+
+    public void SaveName(string name)
+    {
+        _saveSetup.playerName = name;
+        Save();
+    }
+
+    public void SaveLastLevel(int level)
+    {
+        _saveSetup.lastLevel = level;
+        Save();
+    }
+    
+    #endregion
+
 
     private void SaveFile(string json){
         string path = Application.persistentDataPath + "/save.txt";
@@ -32,6 +56,6 @@ public class SaveManager : MonoBehaviour
 [System.Serializable]
 public class SaveSetup
 {
-    public int lastCheckpoint;
+    public int lastLevel;
     public string playerName;
 }
