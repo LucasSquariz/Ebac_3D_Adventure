@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Animation;
+using UnityEngine.Events;
 
 namespace Enemy
 {
@@ -20,7 +21,9 @@ namespace Enemy
         [SerializeField, BoxGroup("Animation config")] public float startAnimationDuration = .2f;
         [SerializeField, BoxGroup("Animation config")] public Ease startAnimationEase = Ease.OutBack;
         [SerializeField, BoxGroup("Animation config")] public bool startWithBornAnimation = true;
-        
+
+        [SerializeField, BoxGroup("Events")] public UnityEvent onKillEvent;
+
         [ShowNonSerializedField] private float _currentLife;
         [ShowNonSerializedField] private Player _player;
 
@@ -49,9 +52,11 @@ namespace Enemy
 
         protected virtual void OnKill() 
         {
-            if(collider != null) collider.enabled = false;
+            if (collider != null) collider.enabled = false;
             Destroy(this.gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
+            Debug.Log("inimigo Morreu");
+            onKillEvent?.Invoke();
         }
 
         public void OnDamagetaken(float d)
