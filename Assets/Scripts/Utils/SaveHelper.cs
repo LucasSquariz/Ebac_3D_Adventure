@@ -6,6 +6,6 @@ public class SaveHelper : MonoBehaviour
 {
     public void SaveInGame()
     {
-        SaveManager.Instance.SaveItems();
+        SaveManager.Instance.SaveItemsLifeAndCheckpoints();        
     }
 }

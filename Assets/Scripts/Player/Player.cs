@@ -36,6 +36,7 @@ public class Player : Singleton<Player>
         OnValidate();
         healthBase.OnDamage += Damage;
         healthBase.OnKill += OnKill;
+        Spawn();
     }
 
     private void OnValidate()
@@ -135,6 +136,13 @@ public class Player : Singleton<Player>
 
         animator.SetBool("Run", isWalking);
         
+    }
+    public void Spawn()
+    {
+        if(SaveManager.Instance.lastCheckpoint != 0)
+        {
+            transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint(SaveManager.Instance.lastCheckpoint);
+        }
     }
 
     [Button]

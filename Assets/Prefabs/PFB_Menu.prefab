@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 776819763886347671}
   - component: {fileID: 776819763886347670}
   - component: {fileID: 776819763886347669}
+  - component: {fileID: 1818399555}
+  - component: {fileID: 6621404213991360607}
   m_Layer: 5
-  m_Name: SaveButton
+  m_Name: LoadButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +123,45 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 776819763886347670}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6621404213991360607}
+        m_TargetAssemblyTypeName: MenuHelper, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1818399555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776819763886347667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c201c37425f9df54db7d9e1b236abb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiTextName: {fileID: 776819765422000303}
+--- !u!114 &6621404213991360607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776819763886347667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8838a3613fdf9f84dbb9b2b9c0c8af83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuUI: {fileID: 0}
 --- !u!1 &776819764458173239
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +251,6 @@ GameObject:
   - component: {fileID: 776819764700543459}
   - component: {fileID: 776819764700543458}
   - component: {fileID: 8050187067245470674}
-  - component: {fileID: 6969978442870354553}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -346,19 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a69892c1a8714546b3df7068e210b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6969978442870354553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776819764700543456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c201c37425f9df54db7d9e1b236abb34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiTextName: {fileID: 776819765195681051}
 --- !u!1 &776819764846117198
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Save
+  m_text: Load
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

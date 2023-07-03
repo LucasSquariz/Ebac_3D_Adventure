@@ -11,6 +11,9 @@ public class SaveManager : Singleton<SaveManager>
     [SerializeField] private SaveSetup _saveSetup;
     private string _path;
     public int lastLevel;
+    public int lastCheckpoint;
+    public float currentLife;
+    public Vector3 lastCheckpointPosition;
 
     public Action<SaveSetup> FileLoaded;
 
@@ -18,8 +21,8 @@ public class SaveManager : Singleton<SaveManager>
     {
         base.Awake();
         DontDestroyOnLoad(this.gameObject);
-        _path = Application.persistentDataPath + "/save.txt";
-        
+        _path = Application.persistentDataPath + "/save.txt";      
+
     }
 
     private void Start()
@@ -31,6 +34,8 @@ public class SaveManager : Singleton<SaveManager>
     {
         _saveSetup = new SaveSetup();
         _saveSetup.lastLevel = 0;
+        _saveSetup.lastCheckpoint = 0;
+        _saveSetup.currentLife = 10;
         _saveSetup.playerName = "Lucas";
     }
 
@@ -58,10 +63,32 @@ public class SaveManager : Singleton<SaveManager>
         Save();
     }
 
+    public void SaveLastCheckpoint()
+    {
+        _saveSetup.lastCheckpoint = CheckpointManager.Instance.lastCheckpointKey;
+        _saveSetup.lastCheckpointPosition = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+        //Save();
+    }
+
     public void SaveItems()
     {
         _saveSetup.coins = Items.ItemManager.Instance.GetItemByType(Items.ItemType.COIN).soInt.value;
         _saveSetup.healthPacks = Items.ItemManager.Instance.GetItemByType(Items.ItemType.LIFE_PACK).soInt.value;
+        //Save();
+    }
+
+    public void SaveLife()
+    {        
+        _saveSetup.currentLife = Player.Instance.healthBase._currentLife;
+        currentLife = _saveSetup.currentLife;
+        //Save();
+    }
+
+    public void SaveItemsLifeAndCheckpoints()
+    {
+        SaveItems();
+        SaveLife();
+        SaveLastCheckpoint();
         Save();
     }
     
@@ -82,13 +109,15 @@ public class SaveManager : Singleton<SaveManager>
             fileLoaded = File.ReadAllText(_path);
             _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
             lastLevel = _saveSetup.lastLevel;
+            lastCheckpoint = _saveSetup.lastCheckpoint;
+            currentLife = _saveSetup.currentLife;            
         }
         else
         {
             CreateNewSave();
             Save();
-        }       
-
+        }
+        Debug.Log(lastCheckpoint);        
         FileLoaded?.Invoke(_saveSetup);
     }
 }
@@ -97,6 +126,9 @@ public class SaveManager : Singleton<SaveManager>
 public class SaveSetup
 {
     public int lastLevel;
+    public int lastCheckpoint;
+    public Vector3 lastCheckpointPosition;
+    public float currentLife;
     public int coins;
     public int healthPacks;
     public string playerName;

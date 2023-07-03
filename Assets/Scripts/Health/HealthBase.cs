@@ -22,6 +22,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public Action<HealthBase> OnDamage;
     public Action<HealthBase> OnKill;
+    private SaveManager _saveManager;
 
     private void Start()
     {
@@ -30,12 +31,23 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public void init()
     {
+        _saveManager = SaveManager.Instance;        
         ResetLife();
+        if (SaveManager.Instance.currentLife != startLife)
+        {
+            SetLife(SaveManager.Instance.currentLife);
+        }
     }
 
     public void ResetLife()
     {
         _currentLife = startLife;
+        UpdateUI();
+    }
+
+    public void SetLife(float value)
+    {
+        _currentLife = value;
         UpdateUI();
     }
 

@@ -8,6 +8,11 @@ public class CheckpointManager : Singleton<CheckpointManager>
     public int lastCheckpointKey = 0;
     public List<CheckpointBase> checkpoints;
 
+    private void Start()
+    {
+        lastCheckpointKey = SaveManager.Instance.lastCheckpoint;
+    }
+
     public bool HaveCheckpoint()
     {
         return lastCheckpointKey > 0;
@@ -26,4 +31,10 @@ public class CheckpointManager : Singleton<CheckpointManager>
         var checkpointToSpawn = checkpoints.Find(i => i.key == lastCheckpointKey);
         return checkpointToSpawn.transform.position;
     }
+    public Vector3 GetPositionFromLastCheckpoint(int checkpointKey)
+    {
+        var checkpointToSpawn = checkpoints.Find(i => i.key == checkpointKey);
+        return checkpointToSpawn.transform.position;
+    }
+
 }
