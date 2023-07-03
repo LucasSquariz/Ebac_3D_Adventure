@@ -1,3 +1,4 @@
+using System;
 using NaughtyAttributes;
 using System.IO;
 using System.Collections;
@@ -7,21 +8,37 @@ using Ebac.Core.Singleton;
 
 public class SaveManager : Singleton<SaveManager>
 {
-    private SaveSetup _saveSetup;
+    [SerializeField] private SaveSetup _saveSetup;
+    private string _path;
+    public int lastLevel;
+
+    public Action<SaveSetup> FileLoaded;
 
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(this.gameObject);
+        _path = Application.persistentDataPath + "/save.txt";
+        
+    }
+
+    private void Start()
+    {
+        Load();
+    }
+
+    private void CreateNewSave()
+    {
         _saveSetup = new SaveSetup();
-        _saveSetup.lastLevel = 2;
+        _saveSetup.lastLevel = 0;
         _saveSetup.playerName = "Lucas";
     }
-    
+
+    public SaveSetup Setup { get { return _saveSetup; }}
 
     #region SAVE
     [Button]
-    private void Save()
+    public void Save()
     {
         string setupToJASON = JsonUtility.ToJson(_saveSetup, true);
         Debug.Log(setupToJASON);
@@ -51,14 +68,28 @@ public class SaveManager : Singleton<SaveManager>
     #endregion
 
 
-    private void SaveFile(string json){
-        string path = Application.persistentDataPath + "/save.txt";
-        Debug.Log(path);
-        //string fileLoaded = "";
-        //if (File.Exists(path)) fileLoaded = File.ReadAllText(path);
+    private void SaveFile(string json)
+    {   
+        File.WriteAllText(_path, json);        
+    }
 
-        File.WriteAllText(path, json);
-        
+    [Button]
+    private void Load()
+    {
+        string fileLoaded = "";
+        if (File.Exists(_path)) 
+        {
+            fileLoaded = File.ReadAllText(_path);
+            _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
+            lastLevel = _saveSetup.lastLevel;
+        }
+        else
+        {
+            CreateNewSave();
+            Save();
+        }       
+
+        FileLoaded?.Invoke(_saveSetup);
     }
 }
 
