@@ -49,6 +49,7 @@ MonoBehaviour:
   itemParticleSystem: {fileID: 0}
   graphicItem: {fileID: 551511865441480671}
   itemCollider: {fileID: 821402047210709020}
+  sfxType: 1
   itemType: 0
   timeToHide: 0.1
   audioSource: {fileID: 0}

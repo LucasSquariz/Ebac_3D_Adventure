@@ -11,6 +11,7 @@ namespace Items
         [SerializeField, BoxGroup("References")] public ParticleSystem itemParticleSystem;
         [SerializeField, BoxGroup("References")] public GameObject graphicItem;
         [SerializeField, BoxGroup("References")] public Collider itemCollider;
+        [SerializeField, BoxGroup("References")] public SFXType sfxType;
 
         [SerializeField, BoxGroup("Item setup")] public ItemType itemType;
 
@@ -34,8 +35,15 @@ namespace Items
                 Collect();
             }
         }
+
+        private void PlaySFX()
+        {
+            SFXPool.Instance.PlayByType(sfxType);
+        }
+
         protected virtual void Collect()
         {
+            PlaySFX();
             if (itemCollider != null) itemCollider.enabled = false;
             if (graphicItem != null) graphicItem.SetActive(false);
             Invoke("HideObject", timeToHide);
