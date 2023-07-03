@@ -63,9 +63,7 @@ namespace Items
         public void RemoveByType(ItemType itemType, int amount = 1)
         {            
             var item = itemSetups.Find(i => i.itemType == itemType);
-            item.soInt.value -= amount;
-            Debug.Log("Gastou poção");
-            Debug.Log(item);            
+            item.soInt.value -= amount;                       
             if (item.soInt.value < 0) item.soInt.value = 0;
         }
 

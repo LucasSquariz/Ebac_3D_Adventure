@@ -19,8 +19,7 @@ namespace Cloth
         }
 
         public virtual void Collect()
-        {
-            Debug.Log("Collected");
+        {            
             var setup = ClothManager.Instance.GetSetupByType(clothType);
             Player.Instance.ChangeTexture(setup, duration);
             HideObject();

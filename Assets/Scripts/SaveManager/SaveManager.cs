@@ -45,8 +45,7 @@ public class SaveManager : Singleton<SaveManager>
     [Button]
     public void Save()
     {
-        string setupToJASON = JsonUtility.ToJson(_saveSetup, true);
-        Debug.Log(setupToJASON);
+        string setupToJASON = JsonUtility.ToJson(_saveSetup, true);        
         SaveFile(setupToJASON);
     }
 
@@ -110,15 +109,13 @@ public class SaveManager : Singleton<SaveManager>
             _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
             lastLevel = _saveSetup.lastLevel;
             lastCheckpoint = _saveSetup.lastCheckpoint;
-            currentLife = _saveSetup.currentLife;
-            Debug.Log(lastCheckpoint);
+            currentLife = _saveSetup.currentLife;            
         }
         else
         {
             CreateNewSave();
             Save();
-        }
-        Debug.Log(lastCheckpoint);        
+        }        
         FileLoaded?.Invoke(_saveSetup);
     }
 }

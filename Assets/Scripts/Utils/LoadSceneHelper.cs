@@ -7,7 +7,6 @@ public class LoadSceneHelper : MonoBehaviour
 {
     public void LoadScene(int level)
     {
-        Debug.Log("clicou");
         SceneManager.LoadScene(level);
     }
 }

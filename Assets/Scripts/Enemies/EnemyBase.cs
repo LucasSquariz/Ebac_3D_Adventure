@@ -14,6 +14,7 @@ namespace Enemy
         [SerializeField, BoxGroup("References")] public Collider collider;
         [SerializeField, BoxGroup("References")] public FlashColor flashColor;
         [SerializeField, BoxGroup("References")] public ParticleSystem particleSystem;
+        [SerializeField, BoxGroup("References")] public SFXType sfxType;
 
         [SerializeField, BoxGroup("Enemy config")] public float startLife = 10f;
         [SerializeField, BoxGroup("Enemy config")] public bool lookAtPlayer = false;
@@ -54,13 +55,18 @@ namespace Enemy
         {
             if (collider != null) collider.enabled = false;
             Destroy(this.gameObject, 3f);
-            PlayAnimationByTrigger(AnimationType.DEATH);
-            Debug.Log("inimigo Morreu");
+            PlayAnimationByTrigger(AnimationType.DEATH);            
             onKillEvent?.Invoke();
+        }
+
+        private void PlaySFX()
+        {
+            SFXPool.Instance.PlayByType(sfxType);
         }
 
         public void OnDamagetaken(float d)
         {
+            PlaySFX();
             if (flashColor != null) flashColor.Flash();
             if (particleSystem != null) particleSystem.Emit(15);
 

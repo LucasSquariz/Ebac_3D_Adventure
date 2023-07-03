@@ -15,6 +15,7 @@ public class AudioManager : Singleton<AudioManager>
         musicSource.clip = music.audioClip;
         musicSource.Play();
     }
+    
 
     public MusicSetup GetMusicByType(MusicType type)
     {

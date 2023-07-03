@@ -15,10 +15,17 @@ public class MusicPlayer : MonoBehaviour
         PlayMusic();
     }
 
-    private void PlayMusic()
+    public void PlayMusic()
     {
         _currMusicSetup = AudioManager.Instance.GetMusicByType(musicType);
         musicSource.clip = _currMusicSetup.audioClip;
         musicSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        _currMusicSetup = AudioManager.Instance.GetMusicByType(musicType);
+        musicSource.clip = _currMusicSetup.audioClip;
+        musicSource.Stop();
     }
 }

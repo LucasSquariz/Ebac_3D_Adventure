@@ -51,8 +51,7 @@ namespace Boss
         public override void OnStateEnter(params object[] objs)
         {
             base.OnStateEnter(objs);
-            boss.StartAttack(EndAttacks);
-            Debug.Log("Boss atacando");
+            boss.StartAttack(EndAttacks);            
         }
 
         private void EndAttacks()

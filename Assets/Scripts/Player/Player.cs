@@ -96,8 +96,7 @@ public class Player : Singleton<Player>
         {
             if (_isJumping)
             {
-                _isJumping = false;
-                Debug.Log("Landing");
+                _isJumping = false;                
                 animator.SetTrigger("Land");
             }
 
@@ -108,8 +107,7 @@ public class Player : Singleton<Player>
 
                 if (!_isJumping)
                 {
-                    _isJumping = true;
-                    Debug.Log("Jumping");
+                    _isJumping = true;                    
                     animator.SetTrigger("Jump");
                 }
                 

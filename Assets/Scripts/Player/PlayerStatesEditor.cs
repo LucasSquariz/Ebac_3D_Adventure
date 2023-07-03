@@ -1,4 +1,5 @@
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(PlayerStatesManager))]
@@ -38,3 +39,5 @@ public class PlayerStatesEditor : Editor
         }
     }
 }
+
+#endif

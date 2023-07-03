@@ -6,6 +6,7 @@ using Ebac.Core.Singleton;
 public class SFXPool : Singleton<SFXPool>
 {
     public int poolSize = 10;
+    public bool _stopSFX = false;
 
     private List<AudioSource> _audioSourceList;
     private int _index = 0;
@@ -37,9 +38,19 @@ public class SFXPool : Singleton<SFXPool>
         if (type == SFXType.NONE) return;        
         var sfx = AudioManager.Instance.GetSFXByType(type);
         _audioSourceList[_index].clip = sfx.audioClip;
-        _audioSourceList[_index].Play();
-
+        if (!_stopSFX) _audioSourceList[_index].Play();
         _index++;
-        if(_index >= _audioSourceList.Count) _index = 0;
+        if (_index >= _audioSourceList.Count) _index = 0;
+               
+    }
+
+    public void TurnOffSFX()
+    {
+        _stopSFX = true;        
+    }
+
+    public void TurnOnSFX()
+    {
+        _stopSFX = false;        
     }
 }
