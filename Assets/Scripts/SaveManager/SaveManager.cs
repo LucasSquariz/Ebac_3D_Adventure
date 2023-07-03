@@ -110,7 +110,8 @@ public class SaveManager : Singleton<SaveManager>
             _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
             lastLevel = _saveSetup.lastLevel;
             lastCheckpoint = _saveSetup.lastCheckpoint;
-            currentLife = _saveSetup.currentLife;            
+            currentLife = _saveSetup.currentLife;
+            Debug.Log(lastCheckpoint);
         }
         else
         {
