@@ -5,17 +5,17 @@ using Ebac.Core.Singleton;
 
 public class CheckpointManager : Singleton<CheckpointManager>
 {
-    public int lastCheckpointKey = 0;
+    public int lastCheckpointKey = -1;
     public List<CheckpointBase> checkpoints;
 
     private void Start()
     {
-        lastCheckpointKey = SaveManager.Instance.lastCheckpoint;
+        lastCheckpointKey = SaveManager.Instance.GetSetup().lastCheckpoint;
     }
 
     public bool HaveCheckpoint()
     {
-        return lastCheckpointKey > 0;
+        return lastCheckpointKey >= 0;
     }
 
     public void SaveCheckpoint(int checkpointKey)
@@ -29,12 +29,14 @@ public class CheckpointManager : Singleton<CheckpointManager>
     public Vector3 GetPositionFromLastCheckpoint()
     {
         var checkpointToSpawn = checkpoints.Find(i => i.key == lastCheckpointKey);
-        return checkpointToSpawn.transform.position;
+        Debug.Log(checkpointToSpawn);
+        return checkpointToSpawn?.transform.position ?? Player.Instance.transform.position;
     }
     public Vector3 GetPositionFromLastCheckpoint(int checkpointKey)
     {
         var checkpointToSpawn = checkpoints.Find(i => i.key == checkpointKey);
-        return checkpointToSpawn.transform.position;
+        Debug.Log(checkpointToSpawn);
+        return checkpointToSpawn?.transform.position ?? Player.Instance.transform.position;
     }
 
 }

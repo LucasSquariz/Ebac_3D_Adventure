@@ -998,15 +998,10 @@ MonoBehaviour:
   _saveSetup:
     lastLevel: 0
     lastCheckpoint: 0
-    lastCheckpointPosition: {x: 0, y: 0, z: 0}
     currentLife: 0
     coins: 0
     healthPacks: 0
     playerName: 
-  lastLevel: 0
-  lastCheckpoint: 0
-  currentLife: 0
-  lastCheckpointPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &817637922
 Transform:
   m_ObjectHideFlags: 0

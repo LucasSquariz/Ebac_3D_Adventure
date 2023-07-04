@@ -33,9 +33,9 @@ public class HealthBase : MonoBehaviour, IDamageable
     {
         _saveManager = SaveManager.Instance;        
         ResetLife();
-        if (SaveManager.Instance.currentLife != startLife)
+        if (SaveManager.Instance.GetSetup().currentLife != startLife)
         {
-            SetLife(SaveManager.Instance.currentLife);
+            SetLife(SaveManager.Instance.GetSetup().currentLife);
         }
     }
 

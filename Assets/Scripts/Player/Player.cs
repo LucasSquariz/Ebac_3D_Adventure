@@ -4,6 +4,7 @@ using UnityEngine;
 using Ebac.Core.Singleton;
 using System.Collections;
 using Cloth;
+using Palmmedia.ReportGenerator.Core.Common;
 
 public class Player : Singleton<Player>
 {
@@ -47,6 +48,7 @@ public class Player : Singleton<Player>
     #region Life
     private void OnKill(HealthBase h)
     {
+        Debug.Log(h._currentLife);
         if (_isAlive)
         {
             _isAlive = false;
@@ -136,11 +138,8 @@ public class Player : Singleton<Player>
         
     }
     public void Spawn()
-    {
-        if(SaveManager.Instance.lastCheckpoint != 0)
-        {
-            transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint(SaveManager.Instance.lastCheckpoint);
-        }
+    {        
+        transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint(SaveManager.Instance.GetSetup().lastCheckpoint);        
     }
 
     [Button]

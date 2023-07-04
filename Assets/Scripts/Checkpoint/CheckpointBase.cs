@@ -6,7 +6,7 @@ using NaughtyAttributes;
 public class CheckpointBase : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
-    public int key = 1;
+    public int key = 0;
 
     private string checkpointKey = "CheckpointKey";
     private bool _checkpointActivated = false;
